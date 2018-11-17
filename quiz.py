@@ -1,7 +1,8 @@
 from random import randint
 
-num_questions = 10
+num_questions = 3
 correct = 0
+wrong_list = []
 
 for i in range(num_questions):
     a = randint(1, 10)
@@ -12,13 +13,17 @@ for i in range(num_questions):
         answer = raw_input("{} - {} = ".format(a, b))
         if answer == str(a - b):
             correct += 1
+        else:
+            wrong_list.append("{} - {} = {}, not {}".format(a, b, a - b, answer))
     else:
         answer = raw_input("{} + {} = ".format(a, b))
         if answer == str(a + b):
             correct += 1
-    score = correct/float(num_questions) * 100
-print "You got {} right out of {}, that's {:.0f}%".format(correct, num_questions, score)
-print
+        else:
+            wrong_list.append("{} + {} = {}, not {}".format(a, b, a + b, answer))
+
+score = correct/float(num_questions) * 100
+print "You got {} right out of {}, that's {:.0f}%\n".format(correct, num_questions, score)
 
 if score == 100:
     print "Great job, you got them all right"
@@ -29,3 +34,8 @@ elif score >= 80:
 else:
     print "Not so good, keep trying, you'll get it."
 
+if score != 100:
+    print
+    print "You got the following problems wrong"
+    for prob in wrong_list:
+        print prob
