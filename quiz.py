@@ -1,6 +1,6 @@
 from random import randint
 
-num_questions = 3
+num_questions = 10
 correct = 0
 wrong_list = []
 
