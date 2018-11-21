@@ -1,8 +1,17 @@
 from random import randint
+from operator import add, sub
 
 num_questions = 10
 correct = 0
 wrong_list = []
+
+def get_and_check(a, b, symbol, operation):
+    answer = raw_input("{} {} {} = ".format(a, symbol, b))
+    if answer == str(operation(a, b)):
+        return 1, None
+    else:
+	return 0, "{} {} {} = {}, not {}".format(a, symbol, b, operation(a, b), answer)
+
 
 for i in range(num_questions):
     a = randint(1, 10)
@@ -10,32 +19,28 @@ for i in range(num_questions):
     if i % 2 == 0:
         if a < b:
             a, b = b, a
-        answer = raw_input("{} - {} = ".format(a, b))
-        if answer == str(a - b):
-            correct += 1
-        else:
-            wrong_list.append("{} - {} = {}, not {}".format(a, b, a - b, answer))
+        result, wrong = get_and_check(a, b, '-', sub)
     else:
-        answer = raw_input("{} + {} = ".format(a, b))
-        if answer == str(a + b):
-            correct += 1
-        else:
-            wrong_list.append("{} + {} = {}, not {}".format(a, b, a + b, answer))
+        result, wrong = get_and_check(a, b, '+', add)
+    correct += result
+    if wrong:
+        wrong_list.append(wrong)
+
 
 score = correct/float(num_questions) * 100
+
 print "You got {} right out of {}, that's {:.0f}%\n".format(correct, num_questions, score)
 
 if score == 100:
-    print "Great job, you got them all right"
+    print "Great job, you got them all right\n"
 elif score >= 90:
-    print "Pretty good, getting there"
+    print "Pretty good, getting there\n"
 elif score >= 80:
-    print "Ok, keep practicing"
+    print "Ok, keep practicing\n"
 else:
-    print "Not so good, keep trying, you'll get it."
+    print "Not so good, keep trying, you'll get it.\n"
 
 if score != 100:
-    print
-    print "You got the following problems wrong"
+    print "You got the following problems wrong:"
     for prob in wrong_list:
         print prob
