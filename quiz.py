@@ -16,12 +16,7 @@ def get_and_check(a, b, symbol, operation):
 for i in range(num_questions):
     a = randint(1, 10)
     b = randint(1, 10)
-    if i % 2 == 0:
-        if a < b:
-            a, b = b, a
-        result, wrong = get_and_check(a, b, '-', sub)
-    else:
-        result, wrong = get_and_check(a, b, '+', add)
+    result, wrong = get_and_check(a, b, '+', add)
     correct += result
     if wrong:
         wrong_list.append(wrong)
